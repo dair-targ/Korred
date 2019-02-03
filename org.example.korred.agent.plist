@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LaunchOnlyOnce</key>
+	<true/>
+	<key>Label</key>
+	<string>org.example.korred.agent</string>
+	<key>LimitLoadToSessionType</key>
+	<string>Aqua</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/open</string>
+		<string>-W</string>
+		<string>-a</string>
+		<string>Korred.app</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>3623</integer>
+	<key>StandardErrorPath</key>
+	<string>/Users/vladimirb/Library/Logs/Korred/AgentStandardError.log</string>
+	<key>StandardOutPath</key>
+	<string>/Users/vladimirb/Library/Logs/Korred/AgentStandardOutput.log</string>
+</dict>
+</plist>

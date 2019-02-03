@@ -1,0 +1,25 @@
+{
+  "name": "korred",
+  "version": "1.0.0",
+  "description": "Allows to run arbitrary scripts on the host machine",
+  "main": "background.js",
+  "scripts": {
+    "build": "./node_modules/.bin/web-ext build --overwrite-dest",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "./node_modules/.bin/web-ext run --browser-console --start-url file://$PWD/../examples/echo/index.html",
+    "which_node": "which node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Rammgako/Korred.git"
+  },
+  "author": "Kai Berkutova",
+  "license": "SEE LICENSE IN ../LICENSE",
+  "bugs": {
+    "url": "https://github.com/Rammgako/Korred/issues"
+  },
+  "homepage": "https://github.com/Rammgako/Korred#readme",
+  "devDependencies": {
+    "web-ext": "^2.9.3"
+  }
+}
