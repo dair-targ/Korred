@@ -9,9 +9,9 @@ import rumps
 import common
 
 
-def open_in_app(*paths, app='Terminal', new_instance=True):
+def open_in_app(*args, app='Terminal', new_instance=True):
     try:
-        args = ['/usr/bin/open'] + (['-n'] if new_instance else []) + ['-a', app] + list(paths)
+        args = ['/usr/bin/open'] + (['-n'] if new_instance else []) + ['-a', app] + list(args)
         logging.info('Executing: %s' % ' '.join(args))
         return subprocess.check_output(args)
     except Exception as exception:
@@ -135,7 +135,7 @@ class App(rumps.App):
             ]),
             app='Console',
             new_instance=False,
-        ),
+        )
 
 
 def main():
