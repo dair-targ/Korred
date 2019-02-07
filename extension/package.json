@@ -2,12 +2,12 @@
   "name": "korred",
   "version": "1.0.0",
   "description": "Allows to run arbitrary scripts on the host machine",
-  "main": "background.js",
+  "main": "src/background.ts",
   "scripts": {
-    "build": "./node_modules/.bin/web-ext build --overwrite-dest",
+    "build": "./node_modules/.bin/webpack && ./node_modules/.bin/web-ext build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "./node_modules/.bin/web-ext run --browser-console --start-url file://$PWD/../examples/echo/index.html",
-    "which_node": "which node"
+    "run": "./node_modules/.bin/web-ext run --url file:$PWD/../examples/echo/index.html",
+    "clean": "rm -rf ./build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,26 @@
   },
   "homepage": "https://github.com/Rammgako/Korred#readme",
   "devDependencies": {
-    "web-ext": "^2.9.3"
+    "@types/firefox": "0.0.29",
+    "copy-webpack-plugin": "^4.6.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.1",
+    "web-ext": "^2.9.3",
+    "web-ext-types": "^3.1.0",
+    "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.3"
+  },
+  "webExt": {
+    "sourceDir": "./build/unpacked",
+    "artifactsDir": "./build",
+    "run": {
+      "browserConsole": true,
+      "startUrl": [
+        "./examples/echo/index.html"
+      ]
+    },
+    "build": {
+      "overwriteDest": true
+    }
   }
 }

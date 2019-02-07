@@ -1,10 +1,15 @@
 const menuItemId = 'open-ssh-to';
-browser.contextMenus.create({
+
+browser.menus.create({
     id: menuItemId,
     title: 'Open SSH to...',
     contexts: ['selection']
 });
-browser.contextMenus.onClicked.addListener(async (info, tab) => {
+
+browser.menus.onClicked.addListener(async (
+        info: browser.menus.OnClickData,
+        tab: browser.tabs.Tab,
+) => {
     if (info.menuItemId === menuItemId) {
         await browser.runtime.sendNativeMessage(
             'korred',
