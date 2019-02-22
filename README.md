@@ -64,7 +64,7 @@ in the new `Terminal.app` window
 
 To get a MacOS application bundle run:
 
-    python setup.py py2app
+    python setup.py build_webextension py2app
 
 The `Korred.app` would be placed in the `dist/` directory.
 This application could be distributed as-is. MacOS installation

@@ -1,8 +1,11 @@
+import json
 import os
 
 from setuptools import setup, Command
 import subprocess
 import sys
+import glob
+import shutil
 
 
 class BuildWebExtensionCommand(Command):
@@ -20,6 +23,26 @@ class BuildWebExtensionCommand(Command):
             cwd=os.path.join('.', 'extension'),
             stdout=sys.stdout,
             stderr=sys.stderr,
+        )
+        with open(os.path.join('.', 'extension', 'local', 'credentials.json')) as f:
+            credentials = json.load(f)
+        subprocess.run(
+            args=[
+                './node_modules/.bin/web-ext',
+                'sign',
+                '--api-key', credentials['apiKey'],
+                '--api-secret', credentials['apiSecret']
+            ],
+            cwd=os.path.join('.', 'extension'),
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+        )
+        shutil.copyfile(
+            max(
+                glob.glob('./extension/build/korred-*.xpi'),
+                key=os.path.getctime,
+            ),
+            './extension/build/korred.xpi'
         )
 
 
@@ -42,6 +65,7 @@ setup(
                 'korred.py',
                 'common.py',
                 'org.example.korred.agent.plist',
+                'extension/build/korred.xpi'
             ]
         )
     ),

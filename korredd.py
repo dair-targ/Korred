@@ -120,7 +120,11 @@ class App(rumps.App):
 
     @rumps.clicked('Install Firefox Extension...')
     def install_firefox_extension(self, _):
-        os.system('open http://google.com')
+        open_in_app(
+            'korred.xpi',
+            app='Firefox.app',
+            new_instance=False,
+        )
 
     @rumps.clicked('Launch at Login')
     def launch_at_login(self, sender):
