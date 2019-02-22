@@ -64,7 +64,6 @@ setup(
             resources=[
                 'korred.py',
                 'common.py',
-                'org.example.korred.agent.plist',
                 'extension/build/korred.xpi'
             ]
         )

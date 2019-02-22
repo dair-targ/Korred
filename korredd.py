@@ -2,6 +2,7 @@ import json
 import logging
 import multiprocessing
 import os
+import plistlib
 import signal
 import subprocess
 import traceback
@@ -96,6 +97,24 @@ class LaunchctlManager(object):
     def target_path(self):
         return os.path.expanduser(os.path.join('~', 'Library', 'LaunchAgents', 'org.example.korred.agent.plist'))
 
+    def write(self):
+        with open(self.source_path, 'w') as f:
+            plistlib.dump(dict(
+                Label='org.example.korred.agent',
+                LimitLoadToSessionType='Aqua',
+                ProgramArguments=[
+                    '/usr/bin/open',
+                    '-W',
+                    '-a',
+                    'Korred.app',
+                ],
+                LaunchOnlyOnce=True,
+                RunAtLoad=True,
+                StartInterval=3623,
+                StandardErrorPath=os.path.expanduser('~/Library/Logs/Korred/AgentStandardError.log'),
+                StandardOutPath=os.path.expanduser('~/Library/Logs/Korred/AgentStandardOutput.log'),
+            ), f)
+
     def is_loaded(self):
         try:
             return os.path.samefile(self.source_path, self.target_path)
@@ -109,6 +128,7 @@ class LaunchctlManager(object):
         else:
             if os.path.exists(self.target_path):
                 os.remove(self.target_path)
+            self.write()
             os.link(self.source_path, self.target_path)
             return True
 
