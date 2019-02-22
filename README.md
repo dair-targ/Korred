@@ -62,13 +62,17 @@ in the new `Terminal.app` window
 
 ### How to build
 
+(optional) Obtain `apiKey` and `apiSecret` from [`Firefox Developer Hub`](https://addons.mozilla.org/en-US/developers/addons)
+and put then into `./extension/local/credentials.json` like `{"apiKey":"...", "apiSecret":"..."}`.
+This is necessary to sign the extension.
+
 To get a MacOS application bundle run:
 
     python setup.py build_webextension py2app
 
 The `Korred.app` would be placed in the `dist/` directory.
 This application could be distributed as-is. MacOS installation
-could be performed by placing this bundle into `/Applications/`.
+could be performed by moving this bundle into `/Applications/`.
 
 Firefox extension for now is located in an unpacked state
 under the `extension/` directory.
