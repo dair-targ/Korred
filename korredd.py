@@ -98,7 +98,7 @@ class LaunchctlManager(object):
         return os.path.expanduser(os.path.join('~', 'Library', 'LaunchAgents', 'org.example.korred.agent.plist'))
 
     def write(self):
-        with open(self.source_path, 'w') as f:
+        with open(self.target_path, 'wb') as f:
             plistlib.dump(dict(
                 Label='org.example.korred.agent',
                 LimitLoadToSessionType='Aqua',
@@ -116,20 +116,14 @@ class LaunchctlManager(object):
             ), f)
 
     def is_loaded(self):
-        try:
-            return os.path.samefile(self.source_path, self.target_path)
-        except IOError:
-            return False
+        return os.path.exists(self.target_path)
 
     def switch(self):
         if self.is_loaded():
             os.remove(self.target_path)
             return False
         else:
-            if os.path.exists(self.target_path):
-                os.remove(self.target_path)
             self.write()
-            os.link(self.source_path, self.target_path)
             return True
 
 
@@ -148,7 +142,10 @@ class App(rumps.App):
 
     @rumps.clicked('Launch at Login')
     def launch_at_login(self, sender):
-        sender.state = self._launchctl_manager.switch()
+        try:
+            sender.state = self._launchctl_manager.switch()
+        except Exception as e:
+            logging.error(e)
 
     @rumps.clicked('View Logs')
     def view_logs_of_native_messaging_handler(self, _):

@@ -1,7 +1,7 @@
 .eggs/
 *.egg-info/
 build/
-dist/
+dist/*.app
 .idea/
 .DS_Store
 __pycache__/
